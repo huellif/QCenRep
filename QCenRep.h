@@ -5,7 +5,7 @@
 
 /*
  thanks faenil for his cenrep example code from:
- https://github.com/faenil/i8910tuning/blob/master/i8910tuning.cpph
+ https://github.com/faenil/i8910tuning/blob/master/i8910tuning.cpp
 
   How to use it:
     - all calls are static
