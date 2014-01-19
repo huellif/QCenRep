@@ -69,8 +69,6 @@ void QCenRep::setCenrep(int iUID, int iKey, QString qValue)
     if (i == -6) //String
     {
         ChangeValStr(repository, iKey, qValue);
-        QString a;
-        ReadValStr(repository, key, &a);
     }
 
     else {
