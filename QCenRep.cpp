@@ -25,14 +25,8 @@ QString QCenRep::getCenrep(int iUID, int iKey)
             return val;
         }
     }
-    else {
-        if (i != -1) {
-            return val.number(i);
-
-        }
-        return QString("Missing key!");
-
-    }
+    else if (i != -1) return val.number(i);
+    return QString("Missing key!");
 }
 
 QString QCenRep::getCenrep(QString iUID, QString iKey)
@@ -88,39 +82,25 @@ void QCenRep::setCenrep(int iUID, int iKey, const char *qValue)
 TInt QCenRep::ChangeValInt(const TUid KUidRepository, TUint32 key, const TInt newkeyvalue){
     TInt err;
     CRepository* iRepository = 0;
-    QString intstr;
     TRAP(err, iRepository = CRepository::NewL(KUidRepository));
-    intstr = QString::number(err);
-    if(err) {
-        delete iRepository;
-        return err;
-    }
-    err = iRepository->Set(key, newkeyvalue);
-    intstr = QString::number(err);
-    if(err) {
-        delete iRepository;
-        return err;
+    if(!err)
+    {
+        err = iRepository->Set(key, newkeyvalue);
     }
     delete iRepository;
     return err;
+
+
 }
 
 TInt QCenRep::ChangeValStr(const TUid KUidRepository, TUint32 key, const QString newkeyvalue){
     TInt err;
     TBuf<254> tbuf(newkeyvalue.utf16());
     CRepository* iRepository = 0;
-    QString intstr;
     TRAP(err, iRepository = CRepository::NewL(KUidRepository));
-    intstr = QString::number(err);
-    if(err) {
-        delete iRepository;
-        return err;
-    }
-    err = iRepository->Set(key, tbuf);
-    intstr = QString::number(err);
-    if(err) {
-        delete iRepository;
-        return err;
+    if(!err)
+    {
+        err = iRepository->Set(key, tbuf);
     }
     delete iRepository;
     return err;
@@ -129,42 +109,28 @@ TInt QCenRep::ChangeValStr(const TUid KUidRepository, TUint32 key, const QString
 TInt QCenRep::ReadValInt(const TUid KUidRepository, TUint32 key){
     TInt err;
     TInt val;
-    QString intstr;
     CRepository* iRepository = 0;
     TRAP(err, iRepository = CRepository::NewL(KUidRepository));
-    intstr = QString::number(err);
-    if(err) {
-        delete iRepository;
-        return err;
-    }
-    err = iRepository->Get(key, val);
-    intstr = QString::number(err);
-    if(err) {
-        delete iRepository;
-        return err;
+    if(!err)
+    {
+        err = iRepository->Get(key, val);
     }
     delete iRepository;
-    return val;
+    return err;
+
 }
 
 TInt QCenRep::ReadValStr(const TUid KUidRepository, TUint32 key, QString* retval){
     TInt err = 0;
     TBuf<254> val;
-    QString intstr;
     CRepository* iRepository = 0;
     TRAP(err, iRepository = CRepository::NewL(KUidRepository));
-    intstr = QString::number(err);
-    if(err) {
-        delete iRepository;
-        return err;
-    }
-    err = iRepository->Get(key, val);
-    intstr = QString::number(err);
-    if(err) {
-        delete iRepository;
-        return err;
+    if(!err)
+    {
+        err = iRepository->Get(key, val);
     }
     delete iRepository;
+
     retval->insert(0, (QChar*) val.Ptr(),val.Length());
     return err;
 }
@@ -172,19 +138,13 @@ TInt QCenRep::ReadValStr(const TUid KUidRepository, TUint32 key, QString* retval
 TInt QCenRep::CreateValInt(const TUid KUidRepository, TUint32 key, const TInt newkeyvalue){
     TInt err;
     CRepository* iRepository = 0;
-    QString intstr;
     TRAP(err, iRepository = CRepository::NewL(KUidRepository));
-    intstr = QString::number(err);
-    if(err) {
-        delete iRepository;
-        return err;
-    }
-    err = iRepository->Create(key, newkeyvalue);
-    intstr = QString::number(err);
-    if(err) {
-        delete iRepository;
-        return err;
+    if(!err)
+    {
+        err = iRepository->Create(key, newkeyvalue);
     }
     delete iRepository;
     return err;
+
+
 }
